@@ -12,14 +12,14 @@ echo $GITBRANCH
 echo $RELEASETAG
 
 if [ $GITBRANCH != "release" ] ; then
-   echo "Release can be finished only on release branch!"
-   return 1
+    echo "Release can be finished only on release branch!"
+    return 1
 fi
 
 if [ -z $RELEASETAG ]
 then
-  echo We expect gitflow to be followed, make sure release branch called release/x.x.x
-  exit 1
+    echo We expect gitflow to be followed, make sure release branch called release/x.x.x
+    exit 1
 fi
 
 git pull origin $GITBRANCH/$RELEASETAG

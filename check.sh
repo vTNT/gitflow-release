@@ -1,15 +1,21 @@
 #!/bin/bash
 
-master_status=`git branch | grep master | wc -l`
 info=`git branch | grep -v develop | grep -v master | wc -l`
 message="check failed,please check again!"
 
+if [ "$1" = "patch" ]
+then
+    checkout_branch_name="master"
+elif [ "$1" = "minor" -o "$1" = "major" ]
+then
+    checkout_branch_name="develop"
+fi
+
 function before_start () {
-    if [ "${master_status}" -eq 0 ]
-    then
-        git checkout master
-        git checkout develop
-    fi
+    git checkout master
+    git checkout develop
+ 
+    git checkout $checkout_branch_name
 
     if [ "${info}" -ne 0 ]
     then

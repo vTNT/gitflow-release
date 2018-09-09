@@ -44,16 +44,13 @@ before_finish || exit 1
 GITBRANCHFULL=`git rev-parse --abbrev-ref HEAD`
 GITBRANCH=`echo "$GITBRANCHFULL" | cut -d "/" -f 1`
 
-if [ $GITBRANCH != "release" -a $GITBRANCH != "hotfix" ]
+if [ "$GITBRANCH" = "hotfix" ]
 then
-   echo -e "Release can be finished only on release/hotfix branch!"
-   exit 1
-fi
-
-if [ $GITBRANCH = "hotfix" ]
+    ../../hotfix_finish.sh
+elif [ "$GITBRANCH" = "release" ]
 then
-    echo -e "sorry, didn't support finish hotfix branch"
-    exit 1
-else
     ../../release_finish.sh 
+else
+    echo -e "Release can be finished only on release/hotfix branch!"
+    exit 1 
 fi

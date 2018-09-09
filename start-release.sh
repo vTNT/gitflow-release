@@ -6,6 +6,11 @@ function usage (){
     echo "the correct command is: start-release.sh -p project_name -version <patch/minor/major>"
 }
 
+function get_info () {
+    NEXTVERSION=`../../bump-version-drynext.sh ${version}`
+    LANGUAGE=$(cat ci/config.yml | shyaml get-value language)
+}
+
 if [ $# -eq 0 ];then
     usage
     exit 1
@@ -32,7 +37,7 @@ done
 
 if [ -z "$version" ]
 then
-   version=minor
+    version=minor
 fi
 
 cd ${SHELL_FOLDER}
@@ -48,17 +53,18 @@ else
 fi
 
 #CHECK
-source ../../check.sh
+source ../../check.sh $version
 before_start || exit 1
 
-NEXTVERSION=`../../bump-version-drynext.sh ${version}`
+#GET NEXT VERSION NUM
+get_info
 
-if [ "$verison" = "patch" ]
+if [ "$version" = "patch" ]
 then
-    echo "sorry, didn't support create hotfix branch"
+    ../../hotfix_start.sh $NEXTVERSION $LANGUAGE $version
 elif [ "$version" = "minor" -o "$version" = "major" ]
 then
-    ../../release_start.sh $NEXTVERSION
+    ../../release_start.sh $NEXTVERSION $LANGUAGE $version
 else
     echo "please input right version"
 fi

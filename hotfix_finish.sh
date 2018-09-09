@@ -11,15 +11,16 @@ HOTFIXTAG=`echo "$GITBRANCHFULL" | cut -d "/" -f 2`
 echo $GITBRANCH
 echo $HOTFIXTAG
 
-if [ $GITBRANCH != "hotfix" ] ; then
-   echo "Hotfix can be finished only on a hotfix branch!"
-   return 1
+if [ $GITBRANCH != "hotfix" ]
+then
+    echo "Release can be finished only on hotfix branch!"
+    return 1
 fi
 
 if [ -z $HOTFIXTAG ]
 then
-  echo We expect gitflow to be followed, make sure hotfix branch called hotfix/x.x.x.x
-  exit 1
+    echo "We expect gitflow to be followed, make sure hotfix branch called hotfix/x.x.x.x"
+    exit 1
 fi
 
 git pull origin $GITBRANCH/$HOTFIXTAG

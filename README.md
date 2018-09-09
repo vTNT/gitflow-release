@@ -14,11 +14,12 @@ For those, who aware, let me remind well known diagram:
 ```
 curl -OL https://raw.github.com/nvie/gitflow/develop/contrib/gitflow-installer.sh
 bash gitflow-installer.sh 
+bash install.sh
 ```
 
 ## Usage
 ```
-1. bash start-release.sh -p project_name -version <patch/minor/major>
+1. bash start-release.sh -p project_name -version <patch/minor/major> ; the default value is patch
 
 2. bash finish-release.sh -p project_name
 ```
@@ -33,4 +34,4 @@ major mean: 0.0.1 -> 1.0.0, and create release branch
 ```
 #### note
 1. you can fork this project to modify;
-2. start-release.sh will support create hotfix branch laster; also you can improve it by youself;
+2. start-release.sh has supported create hotfix branch now;
